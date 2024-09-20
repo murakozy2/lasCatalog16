@@ -8,5 +8,11 @@ las <- readLAS("vgyteszt/tile_639500_290500.las", select = "xyzrn")
 
 plot(las)
 
+## Create catalog
 ctg <- readLAScatalog("vgyteszt/")
 ctg
+las_check(ctg)
+
+## Classify ground
+opt_output_files(ctg) <- paste0(tempdir(), "{*}_classified")
+classified_ctg <- classify_ground(ctg, csf())
