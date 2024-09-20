@@ -16,3 +16,7 @@ las_check(ctg)
 ## Classify ground
 opt_output_files(ctg) <- paste0(tempdir(), "{*}_classified")
 classified_ctg <- classify_ground(ctg, csf())
+
+## DTM
+dtm <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
+plot_dtm3d(dtm, bg = "white")
