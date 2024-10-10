@@ -25,25 +25,25 @@ dtm <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
 
 ## Classify ground csf
 opt_output_files(ctg) <- paste0(tempdir(), "{*}_classified")
-classified_ctg <- classify_ground(ctg, csf())
+classified_ctg_csf <- classify_ground(ctg, csf())
 
 ## DTM csf
-dtmcsf <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
+dtmcsf <- rasterize_terrain(classified_ctg_csf, 2, tin(), pkg = "terra")
 plot_dtm3d(dtmcsf, bg = "white")
 
 ## dtm export csf
-writeRaster(dtmcsf, filename = "E:/szakdolgozat/code/dtmcsf.tif")
+writeRaster(dtmcsf, filename = "E:/szakdolgozat/code/dtmcsfjo.tif")
 
 ## Classify ground pmf
 opt_output_files(ctg) <- paste0(tempdir(), "{*}_classified")
-classified_ctg <- classify_ground(ctg, pmf(ws = 5, th = 3))
+classified_ctg_pmf <- classify_ground(ctg, pmf(ws = 5, th = 3))
 
 ## DTM pmf 
-dtmpmf <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
+dtmpmf <- rasterize_terrain(classified_ctg_pmf, 2, tin(), pkg = "terra")
 plot_dtm3d(dtmpmf, bg = "white")
 
 ## dtm export pmf
-writeRaster(dtmpmf, filename = "E:/szakdolgozat/code/dtmpmf.tif")
+writeRaster(dtmpmf, filename = "E:/szakdolgozat/code/dtmpmfjo.tif")
 
 ## kivonás
-diffcsf <- dtm - dtmcsf
+diffcsf <- dtmpmf - dtmcsf
