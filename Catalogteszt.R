@@ -23,13 +23,27 @@ las_check(ctg)
 dtm <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
 
 
-## Classify ground
+## Classify ground csf
 opt_output_files(ctg) <- paste0(tempdir(), "{*}_classified")
 classified_ctg <- classify_ground(ctg, csf())
 
 ## DTM csf
 dtmcsf <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
 plot_dtm3d(dtmcsf, bg = "white")
+
+## dtm export csf
+writeRaster(dtmcsf, filename = "E:/szakdolgozat/code/dtmcsf.tif")
+
+## Classify ground pmf
+opt_output_files(ctg) <- paste0(tempdir(), "{*}_classified")
+classified_ctg <- classify_ground(ctg, pmf(ws = 5, th = 3))
+
+## DTM pmf 
+dtmpmf <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
+plot_dtm3d(dtmpmf, bg = "white")
+
+## dtm export pmf
+writeRaster(dtmpmf, filename = "E:/szakdolgozat/code/dtmpmf.tif")
 
 ## kivonás
 diffcsf <- dtm - dtmcsf
