@@ -26,6 +26,16 @@ dtm <- rasterize_terrain(ctg, 2, tin(), pkg = "terra")
 ## Classify ground csf
 opt_output_files(ctg) <- paste0(tempdir(), "{*}_classified")
 classified_ctg_csf <- classify_ground(ctg, csf())
+## Default parameters written
+classified_ctg_csf <- classify_ground(ctg, csf(
+                                               sloop_smooth = FALSE,
+                                               class_threshold = 0.5,
+                                               cloth_resolution = 0.5,
+                                               rigidness = 1L,
+                                               iterations = 500L,
+                                               time_step = 0.65
+                                           ))
+
 
 ## DTM csf
 dtmcsf <- rasterize_terrain(classified_ctg_csf, 2, tin(), pkg = "terra")
